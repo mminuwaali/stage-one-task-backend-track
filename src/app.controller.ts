@@ -1,12 +1,15 @@
-import { Controller, Get } from '@nestjs/common';
+import { Request } from 'express';
 import { AppService } from './app.service';
+import { Controller, Get, Query, Req } from '@nestjs/common';
 
-@Controller()
+@Controller("api")
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get("hello")
+  async getHello(@Req() request: Request, @Query("visitor_name") visitorName: string) {
+    request.ip
+
+    return this.appService.getHello(request.ip, visitorName);
   }
 }

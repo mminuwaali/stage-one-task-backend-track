@@ -21,10 +21,10 @@ export class AppService {
 
   private async getLocationFromIp(ip: string) {
     try {
-      const { data } = await axios.get(`https://ipinfo.io/${ip}?token=${this.ipinfoApiKey}`);
+      const { data: { loc = "0,0", city = "" } } = await axios.get(`https://ipinfo.io/${ip}?token=${this.ipinfoApiKey}`);
 
-      const [latitude, longitude] = data.loc.split(',');
-      return { city: data.city, latitude, longitude };
+      const [latitude, longitude] = loc.split(',');
+      return { city: city, latitude, longitude };
     } catch (error) {
       console.error(error);
     }

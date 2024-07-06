@@ -24,7 +24,7 @@ export class AppService {
       const { data: { loc = "0,0", city = "" } } = await axios.get(`https://ipinfo.io/${ip}?token=${this.ipinfoApiKey}`);
 
       const [latitude, longitude] = loc.split(',');
-      return { city: city, latitude, longitude };
+      return { city, latitude, longitude };
     } catch (error) {
       console.error(error);
     }
@@ -33,6 +33,7 @@ export class AppService {
   private async getTemperatureForCoordinates(latitude: number, longitude: number) {
     try {
       const { data } = await axios.get(`https://api.weatherbit.io/v2.0/current?lat=${latitude}&lon=${longitude}&key=${this.weatherbitApiKey}`);
+      
       return data.data[0].temp;
     } catch (error) {
       console.error(error);

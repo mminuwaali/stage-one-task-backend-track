@@ -7,7 +7,7 @@ export class AppController {
 
   @Get("hello")
   async getHello(@Query("visitor_name") visitorName: string, @Ip() ip: string) {
-    console.log(ip, "client ip address");
-    return this.appService.getHello(ip, visitorName);
+    console.log(ip, "client ip address"); // @ts-ignore
+    return this.appService.getHello(request.clientIp || ip, visitorName);
   }
 }
